@@ -1,0 +1,16 @@
+#!/bin/sh
+
+OPMODE=`./getprop Mode 4 | grep Access`
+if [ "$OPMODE" = "Access Point" ]; then
+	ifconfig eth0 down
+	ifconfig ath0 down
+	brctl delif br0 eth0
+	brctl delif br0 ath0
+	ifconfig br0:0 down
+	ifconfig br0 down
+	brctl delbr br0
+else
+	ifconfig ath0:0 down
+	ifconfig ath0 down
+fi
+ifconfig lo down

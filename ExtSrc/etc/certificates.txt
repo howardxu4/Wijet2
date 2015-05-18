@@ -1,0 +1,4 @@
+# filename=type	--  0:CA 1:Client 2:Private Key
+cacert.pem=0			
+clt_cert.pem=1
+clt_key.pem=2

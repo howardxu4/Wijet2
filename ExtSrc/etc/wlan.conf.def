@@ -1,0 +1,17 @@
+region=2		# 0|1|2, EU|JP|NA
+standard=3		# 0|1|2|3, Auto|A|B|G
+operationMode=0		# 0|1, auto|manual
+radioMode=0		# 0|1|2, AP|Infrastructure|Ad-hoc
+uploadOption=0		# 0|1, Firmware|Banner upload
+dot11PrivacyInvoked=0		# true|false
+dot11WEPDefaultKeyID=0		# 0|1|2|3
+PRIV_KEY128=0		# false|true, 64|128 bits, keylength to generate
+dot11WEPDefaultKey0=00:00:00:00:00		# format: xx:xx:xx:xx:xx   or
+dot11WEPDefaultKey1=00:00:00:00:00		#         xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx
+dot11WEPDefaultKey2=00:00:00:00:00		#  e.g.   01:20:03:40:05   or
+dot11WEPDefaultKey3=00:00:00:00:00		#         01:02:03:04:05:06:07:08:09:0a:0b:0c:0d
+AuthType=0		# opensystem | sharedkey (requires WEP)
+SSID=CYNALYNX
+CHANNEL=9		# Channel (1-14), depends on regulatory domain
+outputPower=11		# tx output power level
+ipPnPmode=1		# IP address Plug-N-Play

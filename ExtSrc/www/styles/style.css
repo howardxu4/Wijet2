@@ -1,0 +1,97 @@
+.l
+{
+    FONT-SIZE: 11px;
+    FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+    TEXT-ALIGN: left
+}
+.lh
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 14px;
+    FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+    TEXT-ALIGN: left
+}
+.r
+{
+    FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+    TEXT-ALIGN: left
+}
+.tl
+{
+    FONT-SIZE: 14px;
+    FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+    TEXT-ALIGN: center
+}
+.tr
+{
+    FONT-SIZE: 11px;
+    FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.h
+{
+    FONT-SIZE: 11px;
+    COLOR: blue;
+    FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.tb
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 18px;
+    BACKGROUND: #4766a6;
+    COLOR: white;
+    FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.mb
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 13px;
+    BACKGROUND: #ffffff;
+    COLOR: white;
+    FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.lb
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12px;
+    BACKGROUND: #eeeee3;
+    FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.bk
+{
+    FONT-SIZE: 12px;
+    BACKGROUND: #ffffff;
+    FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.cb
+{
+    FONT-SIZE: 11px;
+    BACKGROUND: #eeeee3;
+    FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.fb
+{
+    FONT-SIZE: 11px;
+    BACKGROUND: #ffffff;
+    FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.pt
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 16px;
+    COLOR: #4766a6;
+    FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.ph
+{
+    FONT-SIZE: 11px;
+    FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.note
+{
+    COLOR: #ff6666
+}
+.th
+{
+    FONT-SIZE: 12px;
+    FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}

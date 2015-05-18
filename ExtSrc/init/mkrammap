@@ -1,0 +1,41 @@
+#!/bin/sh
+
+RAMDSK=/dev/shm
+
+RAMWIN32=/dev/shm/win32
+WIN32LNK=/usr/lib/win32
+WIN32TAR=/root/.components/win32.tar.gz
+
+RAMFFOX=/dev/shm/firefox
+FFOXLNK=/usr/lib/firefox
+FFOXTAR=/root/.components/firefox.tar.gz
+
+RAMWIJET=/dev/shm/bin
+WIJETLNK=/usr/local/bin
+WIJETTAR=/root/.components/wj2.tar.gz
+
+## clean first
+if [ -x $WIN32LNK ]; then
+	rm -rf $WIN32LNK
+fi
+if [ -x $FFOXLNK ]; then
+	rm -rf $FFOXLNK
+fi
+if [ -x $WIJETLNK ]; then
+        rm -rf $WIJETLNK
+fi
+
+## create mount points
+
+tar xzf $WIN32TAR --directory $RAMDSK > /dev/null 2>&1
+tar xzf $FFOXTAR  --directory $RAMDSK > /dev/null 2>&1
+tar xzf $WIJETTAR  --directory $RAMDSK > /dev/null 2>&1
+
+## check disk space
+#df
+
+## create links
+
+ln -s $RAMWIN32 $WIN32LNK
+ln -s $RAMFFOX  $FFOXLNK
+ln -s $RAMWIJET	$WIJETLNK

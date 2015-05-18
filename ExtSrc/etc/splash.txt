@@ -1,0 +1,1 @@
+/banners/defaults/splash.jpg jpg 280 1

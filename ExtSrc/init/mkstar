@@ -1,0 +1,15 @@
+#!/bin/sh
+
+if [ -s start ]; then
+rm -rf start
+fi
+mkdir start
+cd start
+mkdir tmp
+cp ../mkrammap /tmp
+../crpatch patch.txt /tmp/mkrammap 1
+mv /tmp/mkrammap tmp
+tar cvzf ../start.tar.gz *
+cd ..
+rm -rf start
+

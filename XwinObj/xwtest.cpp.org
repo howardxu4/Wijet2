@@ -1,0 +1,113 @@
+
+#include "XwinObject.h"
+
+void DEBUG (char *ui) { fprintf (stderr, ui); fflush(stderr);}
+
+int x = 0;
+int y = 0;
+
+void updateScreen(XwinObject &q)
+{
+	DEBUG("EVENT: update screen\n");
+}
+
+int processEvent(XwinObject &q)
+{
+        XEvent x_event;
+        int    got_event;
+
+            XLockDisplay(q.getDisplay());
+            got_event = XCheckMaskEvent(q.getDisplay(), INPUT_MOTION, &x_event);
+            XUnlockDisplay(q.getDisplay());
+
+            if (got_event) {
+                switch (x_event.type) {
+
+                     case CreateNotify:
+	                DEBUG("Create EVENT\n");
+
+                     break;
+                     case Expose:
+                        updateScreen(q);
+                     break;
+		     case ConfigureNotify:
+			DEBUG("Configure Notify\n");
+		     break;
+                     case KeyPress:
+                        {
+                        char s[30];
+                        XKeyEvent *ke = (XKeyEvent*)&x_event;
+                        sprintf(s, "Key -> %x %d\n", ke->keycode, ke->keycode);
+                        DEBUG(s);
+                        switch(ke->keycode) {
+                            case 24:    // q
+                                exit(0);
+                            break;
+                            case 33:    // p
+                                DEBUG("change pic\n");
+                            break;
+                            case 46:    // l
+                                DEBUG("call xine\n");
+                            break;
+			    case 58:	// m
+				{
+				char s[50];
+				sprintf(s, "move X %d Y %d\n", x, y); 
+				DEBUG(s);
+				q.movePointer(x+=10, y+=10);
+				}
+			    break;
+                        }
+                     }
+                     break;
+                }
+                return 0;
+        }
+        return 1;
+}
+
+int main (int argc, char **argv)
+{
+
+        char          display[128];
+	XwinObject q;
+
+
+	/* default display */
+        memset (display, 0, sizeof (display));
+        snprintf (display, sizeof (display), ":0.0");
+
+        q.openConnection (display);
+        if (!q.getDisplay()) {
+                fprintf (stderr, "Can't open display %s!\n", display);
+                return 0;
+        }
+
+	q.initWindow(100, 100, 300, 250, INPUT_MOTION, true);
+
+
+	q.showWindow();
+
+DEBUG("flush: InLOOP:\n");
+	
+        while (1) {
+	    int n = processEvent(q);
+            if ( n != 1 ){
+            }
+
+	    else {
+		usleep(20000);
+	    }
+        }
+
+	sprintf(display, "ARGC = %d\n", argc);
+	DEBUG(display);
+	if (argc > 1) {
+		DEBUG("Close Xwindow connection\n");
+		XCloseDisplay(q.getDisplay());
+	}
+        sleep (1000);
+
+        return 0;
+}
+

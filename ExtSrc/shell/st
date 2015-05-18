@@ -1,0 +1,120 @@
+#!/bin/sh
+
+# create /etc/scan.txt
+/usr/local/bin/startUp
+
+# setup wlan
+/usr/local/bin/startUp WLAN
+
+# wait a moment
+sleep 2
+
+# start network
+
+OPMODE=`./getprop radioMode 3`
+IPMASK=`./getprop IPMASK 2`
+MANUAL=`./getprop FIPMODE 2`
+
+if [ $OPMODE -eq 0 ]; then
+# access point
+        brctl addbr br0
+        brctl addif br0 eth0
+        brctl addif br0 ath0
+	ifconfig lo 127.0.0.1
+	ifconfig eth0 0.0.0.0
+	ifconfig ath0 0.0.0.0
+        brctl setfd br0 1
+	#ip link set br0 up
+        ifconfig br0 up
+	if [ $MANUAL -ne 0 ]; then
+		dhclient -1 br0
+		if [ $? -ne 0 ]; then
+			MANUAL=0
+		else
+			IPMASK=`ifconfig br0 | grep Mask | sed '/:/s// /g' | awk '{print $3, $7 }'`
+			IPADDR=`echo $IPMASK | awk '{ print $1 }'`
+			IPMASK=`echo $IPMASK | awk '{ rrint $2 }'`
+		fi
+		pkill dhclient
+		ifconfig br0 up
+	fi
+	if [ $MANUAL -eq 0 ]; then
+		IPADDR=`./getprop IPADDR 2`
+		GATEWY=`./getprop GATEWAY 2`
+		ifconfig br0 $IPADDR netmask $IPMASK
+		route add default gw $GATEWY
+	fi
+	
+	if [ $IPMASK = "255.255.0.0" ]; then
+		ifconfig br0:0 192.168.12.171
+	else
+		ifconfig br0:0 169.254.98.171
+	fi
+	startUp AP WPA
+	route add -net 224.0.0.0 netmask 240.0.0.0 dev br0
+else
+   if [ $OPMODE -eq 1 ]; then
+# infrastructure
+	ifconfig lo 127.0.0.1
+	ifconfig eth0 0.0.0.0
+	ifconfig ath0 up
+	iwconfig ath0 mode managed
+	startUp WSTA WPA
+	if [ $MANUAL -ne 0 ]; then
+		dhclient -1 ath0
+		if [ $? -ne 0 ]; then
+			MANUAL=0
+		else
+			IPMASK=`ifconfig ath0 | grep Mask | sed '/:/s// /g' | awk '{print $3, $7 }'`
+			IPADDR=`echo $IPMASK | awk '{ print $1 }'`
+			IPMASK=`echo $IPMASK | awk '{ rrint $2 }'`		
+		fi
+		pkill dhclient
+		ifconfig ath0 up
+	fi
+	if [ $MANUAL -eq 0 ]; then
+		IPADDR=`./getprop IPADDR 2`
+		GATEWY=`./getprop GATEWAY 2`
+		ifconfig ath0 $IPADDR netmask $IPMASK
+		route add default gw $GATEWY
+	fi
+	if [ $IPMASK = "255.255.0.0" ]; then
+		ifconfig ath0:0  192.168.12.171
+	else
+		ifconfig ath0:0  169.254.98.171
+	fi
+	route add -net 224.0.0.0 netmask 240.0.0.0 dev ath0
+   else
+# turn off wireless
+	ifconfig lo 127.0.0.1	
+	ifconfig ath0 0.0.0.0
+        ifconfig eth0 up
+        if [ $MANUAL -ne 0 ]; then
+                dhclient -1 eth0
+                if [ $? -ne 0 ]; then
+                        MANUAL=0
+                else
+                        IPMASK=`ifconfig eth0 | grep Mask | sed '/:/s// /g' | awk '{print $3, $7 }'`
+                        IPADDR=`echo $IPMASK | awk '{ print $1 }'`
+                        IPMASK=`echo $IPMASK | awk '{ rrint $2 }'`
+                fi
+                pkill dhclient
+                ifconfig eth0 up
+        fi
+        if [ $MANUAL -eq 0 ]; then
+                IPADDR=`./getprop IPADDR 2`
+                GATEWY=`./getprop GATEWAY 2`
+                ifconfig eth0 $IPADDR netmask $IPMASK
+                route add default gw $GATEWY
+        fi
+
+        if [ $IPMASK = "255.255.0.0" ]; then
+                ifconfig eth0:0 192.168.12.171
+        else
+                ifconfig eth0:0 169.254.98.171
+        fi
+	route add -net 224.0.0.0 netmask 240.0.0.0 dev eth0
+   fi
+fi
+echo "IPADDR=$IPADDR" >> /etc/scan.txt
+echo "IPMODE=$MANUAL" >> /etc/scan.txt

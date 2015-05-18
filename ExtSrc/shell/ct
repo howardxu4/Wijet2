@@ -1,0 +1,21 @@
+#!/bin/sh
+
+vncviewer -listen -nocursorshape -encodings "copyrect hextile" & 
+./vds  &
+OPMODE=`./getprop radioMode 3`
+if [ $OPMODE -eq 0 ]; then
+#Interface br0:0
+./aip  &
+else
+if [ $OPMODE -eq 1 ]; then
+#Interface ath0:0
+./aip b E e A &
+else
+#Interface eth0:0
+./aip b E &
+fi
+fi
+./w2 &
+./irkb &
+thttpd -u root -d /www/ -c "**.cgi" &
+thttpd -u root -d /www/download/ -p 8888  -c "**.cgi" &

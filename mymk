@@ -1,0 +1,167 @@
+#!/bin/sh
+
+PWD=`pwd`
+cd myNetLib
+echo "---- build myNetLib ----"
+if [ $# -ne 0 ]; then
+make clean
+else
+make
+make install
+fi
+cd ..
+cd XwinObj
+echo "---- build XwinObj ----"
+if [ $# -ne 0 ]; then
+make clean
+else
+make
+make install
+fi
+cd ..
+cd LogTrace
+echo "---- build LogTrace ----"
+if [ $# -ne 0 ]; then
+make clean
+else
+make
+make install
+fi
+cd ..
+cd LoadFile
+echo "---- build LoadFile ----"
+if [ $# -ne 0 ]; then
+make clean
+else
+make
+make install
+fi
+cd ..
+cd Wlans
+echo "---- build Wlans ----"
+if [ $# -ne 0 ]; then
+make clean
+else
+make
+make install
+fi
+cd ..
+cd myXine
+echo "---- build myXine ----"
+if [ $# -ne 0 ]; then
+make clean
+else
+make
+make install
+fi
+cd ..
+cd VideoSvr
+echo "---- build VideoSvr ----"
+if [ $# -ne 0 ]; then
+make clean
+else
+make
+make install
+fi
+cd ..
+cd Banner
+echo "---- build Banner ----"
+if [ $# -ne 0 ]; then
+make clean
+else
+make
+make install
+fi
+cd ..
+cd AutoIP
+echo "---- build AutoIP ----"
+if [ $# -ne 0 ]; then
+make clean
+else
+make
+make install
+fi
+cd ..
+cd Tools
+echo "---- build Tools ----"
+if [ $# -ne 0 ]; then
+make clean
+else
+make
+make install
+fi
+cd ..
+cd WiJET2
+echo "---- build WiJET2 ----"
+if [ $# -ne 0 ]; then
+make clean
+else
+make
+make install
+fi
+cd ..
+cd Config
+echo "---- build Config ----"
+if [ $# -ne 0 ]; then
+make clean
+else
+make
+make install
+fi
+cd ..
+cd WatchDog
+echo "---- build WatchDog ----"
+if [ $# -ne 0 ]; then
+make clean
+else
+make
+make install
+fi
+cd ..
+if [ $# -ne 0 ]; then
+echo "---- clean all ----"
+rm -f libs/*
+rm -f install/usr/local/bin/*
+rm -rf install/www/*
+rm -rf install/banners
+rm -rf install/etc
+rm -rf install/root
+rm -f wj2inst.tar.gz
+else
+cp -f ExtSrc/sbin/* install/usr/local/bin
+strip install/usr/local/bin/* 2>/dev/null
+cp -f ExtSrc/shell/* install/usr/local/bin
+if [ -x ./install/root ]; then
+rm -rf install/root
+fi
+mkdir install/root
+mkdir install/root/.components
+cp -f ExtSrc/init/dot.bash_profile install/root/.bash_profile
+cp -f ExtSrc/init/dot.xinitrc install/root/.xinitrc
+cp -f ExtSrc/init/system.mwmrc install/root/.mwmrc
+cp -rf ExtSrc/banners install
+cp -rf ExtSrc/etc install
+cp -rf ExtSrc/www/* install/www
+cp -f ExtSrc/www/.htpasswd* install/www
+cd ExtSrc/init
+## make start iamge
+./mkstar
+cd ../..
+mv -f ExtSrc/init/start.tar.gz install/root/.components
+cd install
+strip www/*.cgi
+mv -f www/wlan_optn.cgi www/download
+mv -f usr/local/bin/dome1st root/.dome1st
+mv -f usr/local/bin/ckall root/.ckall
+## using ramdisk
+cd usr/local
+tar cvzf ../../root/.components/wj2.tar.gz *
+cd ../..
+mv usr/local/bin ../usrtmp
+tar cvzf ../wj2inst.tar.gz *
+## move back
+mv ../usrtmp usr/local/bin
+cd ..
+echo "DONE"
+fi
+

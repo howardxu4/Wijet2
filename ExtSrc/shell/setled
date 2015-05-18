@@ -1,0 +1,31 @@
+#!/bin/sh
+if [ $# = 1 ]; then
+case $1 in
+0 )
+/usr/local/bin/irsend 1 0
+/usr/local/bin/irsend 2 0
+#echo OFF
+;;
+1 )
+/usr/local/bin/irsend 1 0
+/usr/local/bin/irsend 2 1
+#echo GREEN
+;;
+2 )
+/usr/local/bin/irsend 1 1
+/usr/local/bin/irsend 2 1
+#echo YELLOW
+;;
+3)
+/usr/local/bin/irsend 1 1
+/usr/local/bin/irsend 2 0
+#echo RED
+;;
+* )
+#echo NOTHING
+;; 
+esac
+else
+echo "usage: setled number"
+echo "  number - 0: OFF, 1: GREEN, 2: YELLOW, 3: RED." 
+fi

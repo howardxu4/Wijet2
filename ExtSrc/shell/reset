@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# Reset to factory default
+cp /www/.htpasswd.def /www/.htpasswd
+cp /etc/banners.txt.def /etc/banners.txt
+cp /etc/wlan.conf.def /etc/wlan.conf
+cp /etc/otc_defaults.conf.def /etc/otc_defaults.conf
+sync
+rm -f /banners/images/*.jpg
+cp /banners/defaults/banner.jpg /banners/images/banner.jpg
+sync
+

@@ -1,0 +1,5 @@
+2006-02-17 12:36:23.582062  ---- File mytestlog.txt start ----
+2006-02-17 12:36:23.582113  System [I] hello
+2006-02-17 12:36:23.582673  FuncA [R] Xi.., I am in a Function 1
+2006-02-17 12:36:23.582800  FuncB [P] Hi.., I am in a Function 2
+2006-02-17 12:36:23.582820  System [D] world Ha...

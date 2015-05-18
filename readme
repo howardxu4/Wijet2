@@ -1,0 +1,53 @@
+		CYNALYNX project build readme
+			OCT. 17, 2006
+
+Introduction:
+	The CYNALYNX project source code module structure and build command are explained as following. Each application module may depending on the libraries built from base tools. Each module has the Makefile that support make command with argument (clean, install). To update the PSM download file wijetpsm.exe, make sure the file's mode is rw-r--r--. 
+  
+1. source code modules
+   base tools:
+	myNetLib - network API wrapper 
+	XwinObj  - Xwindows API wrapper
+	LogTrace - log and trace utilities
+	LoadFile - storage API wrapper
+	Wlans    - wireless API wrapper
+	myXine   - Xine API wrapper
+   applications:
+	VideoSvr - meadia player module
+	Banner   - banner page module
+	AutoIP   - auto IP module
+	Tools	 - application support tools
+	WiJET2   - control module
+	Config   - web page module
+	WatchDog - watch dog module 
+   external applications and run time environment:
+	Extsrc	 - banners
+			   -- certs    - sample certificates
+			   -- defaults - fixed image files
+			   -- images   - run time image files
+		 - etc	   config files
+			   -- X11      - xorg.conf
+		 - init	   root directory dot files
+		 - sbin	   third party applications
+		 - shell   shell scripts
+		 - www	   web server files
+			   -- download - PSM download files
+			   -- images   - web page image files
+			   -- scripts  - java script files
+			   -- styles   - css style file
+			   -- log      - run time debug log directory
+   intermediate module:
+	lib	 - build libraries
+	install  - build applications
+
+2. build command
+   under wijet2 directory.
+   clean:
+	./mymk clean
+   build:
+	./mymk
+   output:
+	wj2inst.tar.gz
+   install:
+	change directory to target /
+	tar xvzf wj2inst.tar.gz

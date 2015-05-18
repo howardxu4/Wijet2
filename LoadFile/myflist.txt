@@ -1,0 +1,7 @@
+/home/hxu/myTest/banner.jpg jpg 5 1
+/home/hxu/myTest/spring.jpg jpg 6 1
+/home/hxu/myTest/summer.jpg jpg 10 1
+/home/hxu/myTest/autumn.jpg jpg 6 1
+/home/hxu/myTest/winter.jpg jpg 5 1
+/home/hxu/myTest/try.jpg jpg 8 1
+/home/hxu/myTest/untitled.jpg jpg 9 1

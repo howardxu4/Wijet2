@@ -1,0 +1,34 @@
+#!/bin/sh
+
+RAMDSK=/tmp/ramdsk
+RAMDEV=/dev/ram0
+RAMLNK=/usr/llocal
+IMGTAR=/home/build/ramdsk/wjll.bz
+
+## clean first
+if [ -x $RAMDSK ]; then
+	rm -rf $RAMDSK
+	umount $RAMDEV
+fi
+
+## create a mount point
+mkdir $RAMDSK
+
+## create a file system
+mke2fs -q -m 0 $RAMDEV
+
+## mountthe ramdisk
+mount $RAMDEV $RAMDSK
+
+## copy files to /tmp/ramdsk
+tar xvjf $IMGTAR --directory $RAMDSK 
+
+## check disk space
+df
+
+## create a link
+if [ -x $RAMLNK ]; then
+	rm -f $RAMLNK
+fi
+ln -s $RAMDSK $RAMLNK
+

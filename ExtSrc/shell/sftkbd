@@ -1,0 +1,7 @@
+#!/bin/sh
+r=`pgrep xvkbd`
+if [ "$r" !=  "" ]; then
+pkill xvkbd
+else
+xvkbd -geometry 550x180+100+350&
+fi

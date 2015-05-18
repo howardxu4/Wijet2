@@ -1,0 +1,13 @@
+pkill x11vnc
+pkill vncviewer
+pkill w2 
+pkill vds
+pkill aip
+pkill irkb
+pkill thttpd
+umount /mnt1
+if [ $# -ne 0 ]; then
+./dn
+echo "REBOOT now"
+reboot
+fi

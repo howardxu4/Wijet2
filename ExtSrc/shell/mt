@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# check parameters
+if [ $# != 2 ]; then
+echo "Usage:  mt remote-share-point mount-point"
+echo "Sample: mt //192.168.12.42/WiJET /mnt1"
+exit -1
+fi
+
+# mount only one
+a=`df | grep $2`
+if [ "$a" == "" ]; then
+	smbmount $1 $2 -o password= 
+
+# make sure mounted
+	a=`df | grep $2`
+	if [ "$a" == "" ]; then
+		smbmount $1 $2 -o password=
+		echo "mount again"
+	else
+		echo "mounted"
+	fi
+else
+	echo "mounted!"
+fi

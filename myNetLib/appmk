@@ -1,0 +1,3 @@
+myNetWK: myNetWK.cpp mynetlib.a
+	gcc -Wall -o myNetWK myNetWK.cpp mynetlib.a
+
